@@ -1,0 +1,28 @@
+-- build the database
+DROP DATABASE IF EXISTS wsong73assign2db;
+
+SHOW DATABASES;
+
+CREATE DATABASE wsong73assign2db;
+
+USE wsong73assign2db;
+
+-- Authorize TA
+GRANT USAGE ON *.* TO 'ta'@'localhost';
+DROP USER 'ta'@'localhost';
+CREATE USER 'ta'@'localhost' IDENTIFIED BY 'cs3319';
+GRANT ALL PRIVILEGES ON yourwesternuseridassign2db.* TO 'ta'@'localhost';
+FLUSH PRIVILEGES;
+
+
+-- Display tables
+SHOW TABLES;
+
+-- Create products, agents, customers, purchase tables
+CREATE TABLE products (productid CHAR(2) NOT NULL, description CHAR(20), cost float, quantity int, PRIMARY KEY (productid));
+CREATE TABLE agents (agentid CHAR(2) NOT NULL, firstname CHAR(30), lastname CHAR(30), workingcity CHAR(15), commissionper int,  PRIMARY KEY (agentid));
+CREATE TABLE customers (customerid CHAR(2) NOT NULL, firstname CHAR(30), lastname CHAR(30), city CHAR(15), phoneno VARCHAR(20), agentid CHAR(2), PRIMARY KEY (customerid), FOREIGN KEY (agentid) REFERENCES agents(agentid));
+CREATE TABLE purchase (customerid CHAR(2), purchasequantity int, productid CHAR(2) , PRIMARY KEY (customerid, productid), FOREIGN KEY (customerid) REFERENCES customers(customerid),  FOREIGN KEY (productid) REFERENCES products(productid));
+
+-- Display tables
+SHOW TABLES;

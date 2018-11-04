@@ -1,0 +1,49 @@
+USE wsong73assign2db;
+--  Query 1
+DESCRIBE products;
+--  Query 2
+SELECT DISTINCT city FROM customers;
+--  Query 3
+SELECT * FROM agents ORDER BY workingcity ASC;
+--  Query 4
+SELECT firstname, lastname FROM customers WHERE city IN ("Springfield");
+--  Query 5
+SELECT customers.lastname FROM customers, agents WHERE customers.agentid = agents.agentID AND agents.firstname = "Regis"; 
+--  Query 6
+SELECT description FROM products WHERE description LIKE "%pad%";
+--  Query 7
+SELECT lastname, description, purchasequantity FROM customers, products, purchase WHERE purchase.customerid = customers.customerid AND purchase.productid = products.productid;
+--  Query 8
+SELECT sum(purchasequantity) AS "Homer's Total Purchases" FROM purchase, customers WHERE purchase.customerid = customers.customerid AND firstname = "Homer";
+--  Query 9
+SELECT firstname, lastname, sum(purchasequantity) FROM purchase, customers WHERE purchase.customerid = customers.customerid GROUP BY purchase.customerid;
+--  Query 10
+SELECT description, quantity FROM products WHERE productid NOT IN (SELECT productid FROM purchase);
+--  Query 11
+SELECT description, quantity FROM products WHERE productid NOT IN (SELECT productid FROM purchase where purchase.customerid IN (SELECT customerid FROM customers WHERE firstname = "Fred" AND lastname = "Flintstone"));
+--  Query 12
+SELECT agents.firstname, agents.lastname, customers.firstname, customers.lastname FROM agents, customers WHERE customers.agentid = agents.agentid AND city = workingcity;
+--  Query 13
+SELECT sum(purchasequantity) AS "The total number of knee pads purchased" FROM purchase WHERE purchase.productid = (SELECT productid FROM products WHERE description = "Knee Pads");
+--  Query 14
+SELECT description FROM products WHERE productid IN (SELECT productid FROM purchase GROUP BY productid HAVING count(purchasequantity) > 3 );
+--  Query 15
+SELECT firstname, lastname FROM agents WHERE agentid IN (SELECT agentid FROM customers WHERE customerid IN (SELECT customerid FROM purchase WHERE productid IN (SELECT productid FROM products WHERE description = "knee pads")));
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,30 @@
+USE wsong73assign2db;
+-- Display data
+SELECT * FROM customers;
+SELECT * FROM products;
+SELECT * FROM agents;
+SELECT * FROM purchase;
+
+-- Create view
+CREATE VIEW purchasedetail AS
+	SELECT firstname, lastname, description, purchasequantity, cost, purchasequantity*cost FROM customers, purchase, products 
+	WHERE customers.customerid = purchase.customerid AND purchase.productid = products.productid
+	ORDER BY lastname ASC;
+
+-- Check View is created
+SELECT * FROM purchasedetail;
+
+-- Query 
+SELECT * FROM purchasedetail WHERE lastname IN (SELECT lastname FROM purchasedetail GROUP BY lastname HAVING sum(purchasequantity*cost) >100 );
+
+-- Delete products add by me
+DELETE FROM products WHERE description LIKE "Calculator";
+DELETE FROM products WHERE description LIKE "Lip Balm";
+
+-- Check delete works
+SELECT * FROM products WHERE description IN ("Calculator", "Lip Balm");
+
+-- Delete agent from Springfield
+DELETE FROM agents WHERE workingcity LIKE " Springfield";
+
+--This delete not working because that agent is also a foreign key in the customers table. Since when create the table, there is no ON DELETE CASCADE add as a condition to the table, the delete will not work. 

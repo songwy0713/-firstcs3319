@@ -1,0 +1,239 @@
+Warning: Using a password on the command line interface can be insecure.
+--------------
+LOAD DATA LOCAL INFILE 'productinfo.txt' INTO TABLE products FIELDS TERMINATED BY ','
+--------------
+
+--------------
+SELECT * FROM products
+--------------
+
+productid	description	cost	quantity
+11	Bike	150	200
+12	Socks	2	100
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+INSERT INTO products VALUES (66,  'Elbow pads', 14.25, 120)
+--------------
+
+--------------
+INSERT INTO products VALUES (02,  'Lip Balm', 1.25, 150)
+--------------
+
+--------------
+INSERT INTO products VALUES (55,  'Calculator', 20, 80)
+--------------
+
+--------------
+INSERT INTO agents VALUES (99, 'Hugh', 'Grant', 'Springfield', 16)
+--------------
+
+--------------
+INSERT INTO agents VALUES (22, 'Courtney', 'Cox', 'New York', 25)
+--------------
+
+--------------
+INSERT INTO agents VALUES (66, 'Rosie', 'ODonnell', 'Ottawa', 100)
+--------------
+
+--------------
+INSERT INTO agents VALUES (33, 'David', 'Letterman', 'Bedrock', 100)
+--------------
+
+--------------
+INSERT INTO agents VALUES (11, 'Regis', 'Philbin',  'Boston', 33)
+--------------
+
+--------------
+INSERT INTO agents VALUES (12, 'Rosie', 'Cox',  'Ottawa', 50)
+--------------
+
+--------------
+INSERT INTO agents VALUES (13, 'Wanyun', 'Song',  'Vancouver', 100)
+--------------
+
+--------------
+INSERT INTO customers VALUES (21, 'Homer', 'Simpson', 'Springfield', '686-8956', '99')
+--------------
+
+--------------
+INSERT INTO customers VALUES (31, 'Sideshow', 'Bob', 'Springfield', '686-5555', '66')
+--------------
+
+--------------
+INSERT INTO customers VALUES (12, 'Monty', 'Burns', 'Springfield', '789-0000', '99')
+--------------
+
+--------------
+INSERT INTO customers VALUES (15, 'Fred', 'Flintstone', 'Bedrock', '777-2345', '11')
+--------------
+
+--------------
+INSERT INTO customers VALUES (13, 'Super', 'Man', 'Kypto', '888-1234', '33')
+--------------
+
+--------------
+INSERT INTO customers VALUES (10, 'Barney', 'Rubble', 'Bedrock', '777-1234', '11')
+--------------
+
+--------------
+INSERT INTO customers VALUES (14, 'Peter', 'Griffens', 'Providence', '987-4567', '99')
+--------------
+
+--------------
+INSERT INTO purchase VALUES (21, 20, 99)
+--------------
+
+--------------
+INSERT INTO purchase VALUES (21, 14, 12)
+--------------
+
+--------------
+INSERT INTO purchase VALUES (21, 10, 66)
+--------------
+
+--------------
+INSERT INTO purchase VALUES (31, 1, 99)
+--------------
+
+--------------
+INSERT INTO purchase VALUES (31, 2, 12)
+--------------
+
+--------------
+INSERT INTO purchase VALUES (31, 4, 78)
+--------------
+
+--------------
+INSERT INTO purchase VALUES (31, 2, 66)
+--------------
+
+--------------
+INSERT INTO purchase VALUES (15, 2, 66)
+--------------
+
+--------------
+INSERT INTO purchase VALUES (15, 2, 78)
+--------------
+
+--------------
+INSERT INTO purchase VALUES (14, 19, 66)
+--------------
+
+--------------
+SELECT * FROM products
+--------------
+
+productid	description	cost	quantity
+11	Bike	150	200
+12	Socks	2	100
+2	Lip Balm	1.25	150
+55	Calculator	20	80
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM customers
+--------------
+
+customerid	firstname	lastname	city	phoneno	agentid
+10	Barney	Rubble	Bedrock	777-1234	11
+12	Monty	Burns	Springfield	789-0000	99
+13	Super	Man	Kypto	888-1234	33
+14	Peter	Griffens	Providence	987-4567	99
+15	Fred	Flintstone	Bedrock	777-2345	11
+21	Homer	Simpson	Springfield	686-8956	99
+31	Sideshow	Bob	Springfield	686-5555	66
+--------------
+SELECT * FROM agents
+--------------
+
+agentid	firstname	lastname	workingcity	commissionper
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+13	Wanyun	Song	Vancouver	100
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM purchase
+--------------
+
+customerid	purchasequantity	productid
+14	19	66
+15	2	66
+15	2	78
+21	14	12
+21	10	66
+21	20	99
+31	2	12
+31	2	66
+31	4	78
+31	1	99
+--------------
+UPDATE customers SET firstname = "Wonder", lastname = "Woman" WHERE firstname = "Super" AND lastname = "Man"
+--------------
+
+--------------
+UPDATE purchase SET purchasequantity = 5 WHERE purchase.customerid = (SELECT customerid FROM customers WHERE firstname = "Sideshow")
+--------------
+
+--------------
+UPDATE customers SET city = "Boston" WHERE customers.agentid = (SELECT agentid FROM agents WHERE firstname = "Regis")
+--------------
+
+--------------
+SELECT * FROM products
+--------------
+
+productid	description	cost	quantity
+11	Bike	150	200
+12	Socks	2	100
+2	Lip Balm	1.25	150
+55	Calculator	20	80
+66	Elbow pads	14.25	120
+78	Knee Pads	12.15	70
+88	Roller Blades	75	89
+99	Helmet	29	30
+--------------
+SELECT * FROM customers
+--------------
+
+customerid	firstname	lastname	city	phoneno	agentid
+10	Barney	Rubble	Boston	777-1234	11
+12	Monty	Burns	Springfield	789-0000	99
+13	Wonder	Woman	Kypto	888-1234	33
+14	Peter	Griffens	Providence	987-4567	99
+15	Fred	Flintstone	Boston	777-2345	11
+21	Homer	Simpson	Springfield	686-8956	99
+31	Sideshow	Bob	Springfield	686-5555	66
+--------------
+SELECT * FROM agents
+--------------
+
+agentid	firstname	lastname	workingcity	commissionper
+11	Regis	Philbin	Boston	33
+12	Rosie	Cox	Ottawa	50
+13	Wanyun	Song	Vancouver	100
+22	Courtney	Cox	New York	25
+33	David	Letterman	Bedrock	100
+66	Rosie	ODonnell	Ottawa	100
+99	Hugh	Grant	Springfield	16
+--------------
+SELECT * FROM purchase
+--------------
+
+customerid	purchasequantity	productid
+14	19	66
+15	2	66
+15	2	78
+21	14	12
+21	10	66
+21	20	99
+31	5	12
+31	5	66
+31	5	78
+31	5	99
